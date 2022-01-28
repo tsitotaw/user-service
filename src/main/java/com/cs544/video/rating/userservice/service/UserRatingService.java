@@ -42,7 +42,7 @@ public class UserRatingService implements IUserRatingService{
         UserRating rating = this.userRatingRepository.getById(userRatingId);
         User user = this.userRepository.getById(rating.getUserId());
 
-        Video video = this.restTemplate.getForObject("http://localhost:8010/videos/"+rating.getVideoId(), Video.class);
+        Video video = this.restTemplate.getForObject("http://VIDEO-SERVICE/videos/"+rating.getVideoId(), Video.class);
 
         UserRatingVideo urv = new UserRatingVideo();
         urv.setUserRating(rating);
