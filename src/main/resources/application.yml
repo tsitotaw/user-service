@@ -3,16 +3,8 @@ server:
 
 spring:
   application:
-    name: USER-SERVICE
+    name: VR-USER-SERVICE
     jpa:
       database-platform: org.hibernate.dialect.H2Dialect
       defer-datasource-initialization: true
       show-sql: true
-eureka:
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://localhost:8777/eureka/
-    instance:
-      hostname: localhost
