@@ -1,5 +1,6 @@
 package com.cs544.video.rating.userservice.service;
 
+import com.cs544.video.rating.userservice.dto.UserRatingVideo;
 import com.cs544.video.rating.userservice.model.UserRating;
 import org.springframework.stereotype.Service;
 
@@ -10,4 +11,6 @@ public interface IUserRatingService {
     UserRating getUserRatingById(Long userRatingId);
     List<UserRating> getAll();
     UserRating saveUserRating(UserRating userRating);
+
+    UserRatingVideo getUserRatingByIdWithVideo(Long userRatingId);
 }

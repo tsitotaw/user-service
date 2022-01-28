@@ -1,5 +1,6 @@
 package com.cs544.video.rating.userservice.controller;
 
+import com.cs544.video.rating.userservice.dto.UserRatingVideo;
 import com.cs544.video.rating.userservice.model.User;
 import com.cs544.video.rating.userservice.model.UserRating;
 import com.cs544.video.rating.userservice.service.IUserRatingService;
@@ -17,8 +18,8 @@ public class UserRatingController {
     private IUserRatingService userRatingService;
 
     @GetMapping("/{id}")
-    public UserRating getUserById(@PathVariable("id") Long userRatingId){
-        return this.userRatingService.getUserRatingById(userRatingId);
+    public UserRatingVideo getUserRatingByIdWithVideo(@PathVariable("id") Long userRatingId){
+        return this.userRatingService.getUserRatingByIdWithVideo(userRatingId);
     }
 
     @GetMapping("/")
