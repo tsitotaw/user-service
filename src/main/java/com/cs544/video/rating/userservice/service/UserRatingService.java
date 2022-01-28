@@ -39,8 +39,8 @@ public class UserRatingService implements IUserRatingService{
 
     @Override
     public UserRatingVideo getUserRatingByIdWithVideo(Long userRatingId) {
-        UserRating rating = this.userRatingRepository.getById(userRatingId);
-        User user = this.userRepository.getById(rating.getUserId());
+        UserRating rating = this.userRatingRepository.findById(userRatingId).get();
+        User user = this.userRepository.findById(rating.getUserId()).get();
 
         Video video = this.restTemplate.getForObject("http://VR-API-GATEWAY/videos/"+rating.getVideoId(), Video.class);
 
