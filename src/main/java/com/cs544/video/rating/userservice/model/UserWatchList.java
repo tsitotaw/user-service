@@ -12,7 +12,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class UserRating {
+public class UserWatchList {
 
     @Id
     @GeneratedValue
