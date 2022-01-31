@@ -11,6 +11,7 @@ public interface IUserWatchListService {
     UserWatchList getUserRatingById(Long userRatingId);
     List<UserWatchList> getAll();
     UserWatchList saveUserRating(UserWatchList userRating);
+    void deleteWatchList(UserWatchList userRating);
 
     UserWatchListVideo getUserRatingByIdWithVideo(Long userRatingId);
 }

@@ -13,6 +13,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.HttpHeaders;
 import java.util.List;
@@ -26,6 +27,9 @@ public class UserWatchListService implements IUserWatchListService {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Value("${user.credential}")
+    private String credential;
 
     @Override
     public UserWatchList getUserRatingById(Long userRatingId) {
@@ -43,12 +47,17 @@ public class UserWatchListService implements IUserWatchListService {
     }
 
     @Override
+    public void deleteWatchList(UserWatchList userRating) {
+        this.userWatchListRepository.delete(userRating);
+    }
+
+    @Transactional
+    @Override
     public UserWatchListVideo getUserRatingByIdWithVideo(Long userRatingId) {
         UserWatchList rating = this.userWatchListRepository.findById(userRatingId).get();
         User user = this.userRepository.findById(rating.getUserId()).get();
 
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Video> response = restTemplate.exchange("http://localhost:9111/videos/basic/"+rating.getVideoId(), HttpMethod.GET, this.getProperAuthorizationHeader(),Video.class);
+        ResponseEntity<Video> response = new RestTemplate().exchange("http://localhost:9111/videos/basic/"+rating.getVideoId(), HttpMethod.GET, this.getProperAuthorizationHeader(),Video.class);
         Video video = response.getBody();
 
         UserWatchListVideo urv = new UserWatchListVideo();
@@ -60,7 +69,7 @@ public class UserWatchListService implements IUserWatchListService {
     }
 
     private String getBase64Credential(){
-        String plainCreds = "user:user";//this.credential.substring(1, this.credential.length()-1);
+        String plainCreds = this.credential.substring(1, this.credential.length()-1);
         byte[] plainCredsBytes = plainCreds.getBytes();
         byte[] base64CredsBytes = Base64.encodeBase64(plainCredsBytes);
         return new String(base64CredsBytes);
@@ -71,4 +80,6 @@ public class UserWatchListService implements IUserWatchListService {
         headers.add("Authorization", "Basic " + this.getBase64Credential());
         return new HttpEntity<Video>(headers);
     }
+
+
 }

@@ -30,4 +30,9 @@ public class UserService implements IUserService{
     public User saveUser(User user) {
         return this.userRepository.save(user);
     }
+
+    @Override
+    public void deleteUser(User user) {
+        this.userRepository.delete(user);
+    }
 }

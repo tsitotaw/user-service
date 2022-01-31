@@ -9,24 +9,24 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/userratings")
-public class UserRatingController {
+@RequestMapping("/userwatchlists")
+public class UserWatchListController {
 
     @Autowired
-    private IUserWatchListService userRatingService;
+    private IUserWatchListService userWatchListService;
 
     @GetMapping("/{id}")
     public UserWatchListVideo getUserRatingByIdWithVideo(@PathVariable("id") Long userRatingId){
-        return this.userRatingService.getUserRatingByIdWithVideo(userRatingId);
+        return this.userWatchListService.getUserRatingByIdWithVideo(userRatingId);
     }
 
     @GetMapping("/")
     public List<UserWatchList> getAllUsers(){
-        return this.userRatingService.getAll();
+        return this.userWatchListService.getAll();
     }
 
     @PostMapping("/")
     public UserWatchList saveUser(@RequestBody UserWatchList userRating){
-        return this.userRatingService.saveUserRating(userRating);
+        return this.userWatchListService.saveUserRating(userRating);
     }
 }
