@@ -6,12 +6,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public interface IUserWatchListService {
     UserWatchList getUserRatingById(Long userRatingId);
     List<UserWatchList> getAll();
     UserWatchList saveUserRating(UserWatchList userRating);
-    void deleteWatchList(UserWatchList userRating);
+    void deleteWatchList(Long uwlId);
 
     UserWatchListVideo getUserRatingByIdWithVideo(Long userRatingId);
 }

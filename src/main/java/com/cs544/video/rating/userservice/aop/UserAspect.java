@@ -17,11 +17,6 @@ public class UserAspect {
     @Autowired
     private static final Logger logger = LoggerFactory.getLogger(UserAspect.class);
 
-    @Before("execution(* com.cs544.video.rating.userservice.service.*.*(..))")
-    public void logBeforeAllDaoMethods(JoinPoint jp){
-        this.logger.info("the following User endpoint is hit - " + jp.getSignature().getName());
-    }
-
     @AfterThrowing(pointcut = "execution(* com.cs544.video.rating.userservice.controller.*.*(..))", throwing="ex")
     public void logWhenControllerExceptionThrown(JoinPoint jp, Exception ex) throws Exception{
         this.logger.info("the following Exception is thrown - " + ex.getClass().getName());
@@ -41,7 +36,7 @@ public class UserAspect {
         sw.stop();
         long totalTime = sw.getLastTaskTimeMillis();
 
-        this.logger.info("Time to execute " + methodName + " = " +totalTime);
+        this.logger.info("Time to execute the RPC " + methodName + " = " +totalTime);
         return retVal;
     }
 }

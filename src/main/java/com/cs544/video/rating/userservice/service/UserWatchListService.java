@@ -30,6 +30,8 @@ public class UserWatchListService implements IUserWatchListService {
 
     @Value("${user.credential}")
     private String credential;
+    @Value("${user.videoUrl}")
+    private String videoUrl;
 
     @Override
     public UserWatchList getUserRatingById(Long userRatingId) {
@@ -47,8 +49,8 @@ public class UserWatchListService implements IUserWatchListService {
     }
 
     @Override
-    public void deleteWatchList(UserWatchList userRating) {
-        this.userWatchListRepository.delete(userRating);
+    public void deleteWatchList(Long uwlId) {
+        this.userWatchListRepository.deleteById(uwlId);
     }
 
     @Transactional
@@ -56,8 +58,8 @@ public class UserWatchListService implements IUserWatchListService {
     public UserWatchListVideo getUserRatingByIdWithVideo(Long userRatingId) {
         UserWatchList rating = this.userWatchListRepository.findById(userRatingId).get();
         User user = this.userRepository.findById(rating.getUserId()).get();
-
-        ResponseEntity<Video> response = new RestTemplate().exchange("http://localhost:9111/videos/basic/"+rating.getVideoId(), HttpMethod.GET, this.getProperAuthorizationHeader(),Video.class);
+        String url = this.videoUrl.substring(1, this.videoUrl.length()-1);
+        ResponseEntity<Video> response = new RestTemplate().exchange(url + rating.getVideoId(), HttpMethod.GET, this.getProperAuthorizationHeader(),Video.class);
         Video video = response.getBody();
 
         UserWatchListVideo urv = new UserWatchListVideo();

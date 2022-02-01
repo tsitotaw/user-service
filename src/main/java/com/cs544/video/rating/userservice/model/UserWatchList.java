@@ -1,5 +1,6 @@
 package com.cs544.video.rating.userservice.model;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,9 @@ public class UserWatchList {
     @GeneratedValue
     private Long userRatingId;
 
+    @NotNull
     private Long userId;
+    @NotNull
     private Long videoId;
     private Integer rating;
 }
