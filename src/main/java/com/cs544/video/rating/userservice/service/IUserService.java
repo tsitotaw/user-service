@@ -10,5 +10,5 @@ public interface IUserService {
     User getUserById(Long userId);
     List<User> getAll();
     User saveUser(User user);
-    void deleteUser(User user);
+    void deleteUser(Long userId);
 }

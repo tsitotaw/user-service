@@ -3,10 +3,7 @@ package com.cs544.video.rating.userservice.aop;
 import com.cs544.video.rating.userservice.controller.UserController;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +20,11 @@ public class UserAspect {
     @Before("execution(* com.cs544.video.rating.userservice.service.*.*(..))")
     public void logBeforeAllDaoMethods(JoinPoint jp){
         this.logger.info("the following User endpoint is hit - " + jp.getSignature().getName());
+    }
+
+    @AfterThrowing(pointcut = "execution(* com.cs544.video.rating.userservice.controller.*.*(..))", throwing="ex")
+    public void logWhenControllerExceptionThrown(JoinPoint jp, Exception ex) throws Exception{
+        this.logger.info("the following Exception is thrown - " + ex.getClass().getName());
     }
 
     @Around("execution(* getUserRatingByIdWith*(..))")

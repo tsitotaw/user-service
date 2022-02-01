@@ -18,9 +18,9 @@ public class Bootstrapper implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        this.userService.saveUser(new User(null, "User1", "1100 St, Fairfield Iowa"));
-        this.userService.saveUser(new User(null, "User2", "1090 St, Fairfield Iowa"));
-        this.userService.saveUser(new User(null, "User3", "1090 St, Ottoman Iowa"));
+        this.userService.saveUser(new User(null, "User1", "1100 St, Fairfield Iowa", null));
+        this.userService.saveUser(new User(null, "User2", "1090 St, Fairfield Iowa", null));
+        this.userService.saveUser(new User(null, "User3", "1090 St, Ottoman Iowa", null));
 
         this.userRatingService.saveUserRating(new UserWatchList(null, 1L, 1L, 4));
         this.userRatingService.saveUserRating(new UserWatchList(null, 1L, 2L, 5));
